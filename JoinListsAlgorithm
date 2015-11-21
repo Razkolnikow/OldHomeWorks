@@ -1,0 +1,69 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+
+namespace _12JoinLists
+{
+    class _12JoinLists
+    {
+        static void Main()
+        {            
+            List<int> list1 = new List<int>();
+            List<int> list2 = new List<int>();
+
+            string inputLine1 = Console.ReadLine();
+            string inputLine2 = Console.ReadLine();
+
+            list1 = inputLine1.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
+                .Select(int.Parse)
+                .ToList();
+            list2 = inputLine2.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
+                .Select(int.Parse)
+                .ToList();
+
+            List<int> joinedList = list1;
+
+            for (int i = 0; i < list2.Count; i++)
+            {
+                joinedList.Add(list2[i]);
+            }
+            int minNum = int.MaxValue;
+            int counter = 0;
+            int index = 0;
+            int counterI = 0;
+            for (int i = 0; i < joinedList.Count; i++)
+            {
+                while (counter != joinedList.Count)
+                {
+                    if (joinedList[counter] < minNum)
+                    {
+                        minNum = joinedList[counter];
+                        index = counter;
+                    }
+                    counter++;
+                }
+                joinedList[index] = joinedList[i];
+                joinedList[i] = minNum;
+                minNum = int.MaxValue;
+                counterI++;
+                counter = counterI;
+            }            
+            counter = 0;
+            counterI = 0;            
+            List<int> finalList = new List<int>();            
+            finalList.Add(joinedList[0]);
+            for (int i = 1; i < joinedList.Count; i++)
+            {
+                if (finalList[counter] != joinedList[i])
+                {
+                    finalList.Add(joinedList[i]);
+                    counter++;
+                }                
+            }
+            Console.WriteLine(string.Join(" ", finalList));
+        }
+    }
+}
