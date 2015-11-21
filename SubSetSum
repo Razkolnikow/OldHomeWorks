@@ -1,0 +1,42 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+class SubsetSums
+{
+    static void Main()
+    {
+        Console.WriteLine("Input: ");
+        int n = int.Parse(Console.ReadLine());
+        string inputLine = Console.ReadLine();
+        int[] array = inputLine.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
+            .Select(int.Parse)
+            .Distinct()
+            .ToArray();
+        uint length = (uint)array.Length;        
+        bool isSubSet = false;
+
+        List<int> sum = new List<int>();
+        for (int i = 1; i < Math.Pow(2, length); i++)
+        {
+            sum.Clear();
+            for (int j = 0; j < length; j++)
+            {
+                if ((i >> j & 1) == 1)
+                {
+                    sum.Add(array[j]);
+                }
+            }
+            if (sum.Sum() == n)
+            {
+                isSubSet = true;
+                Console.WriteLine("{0} = {1}", string.Join(" + ", sum), n);
+            }
+        }
+        if (isSubSet == false)
+        {
+            Console.WriteLine("No matching subsets.");
+        }
+
+    }
+}
