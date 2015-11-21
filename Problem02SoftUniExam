@@ -1,0 +1,65 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Numerics;
+
+
+class _02
+{
+    static void Main()
+    {
+
+        ulong n = ulong.Parse(Console.ReadLine());
+        ulong[] thievesAndSlaps = new ulong[2 * n];
+        ulong slap = 0;
+        for (ulong i = 0; i < (ulong)2*n; i++)
+			{
+                thievesAndSlaps[i] = ulong.Parse(Console.ReadLine());
+			}
+        ulong[] numberOfThieves = new ulong[n];
+        ulong[] numberBeers = new ulong[n];
+        ulong slappedTs = 0;
+        ulong escaped = 0;
+        ulong counter = 0;
+        ulong counter2 = 0;
+        for (int i = 0; i < thievesAndSlaps.Length; i++)
+        {
+            if ( i % 2 == 0)
+            {
+                numberOfThieves [counter] =thievesAndSlaps[i];
+                counter++;
+            }
+            else
+            {
+                numberBeers[counter2] = thievesAndSlaps[i];
+                counter2++;
+            }
+        }       
+        
+        ulong beers = 0;
+        for (int i = 0; i < numberBeers.Length; i++)
+        {
+            beers += numberBeers[i];
+        }
+        ulong packs = beers / 6;
+        ulong bottles = beers % 6;              
+        for (int i = 0; i < numberOfThieves.Length; i++)
+        {
+            if (numberOfThieves [i] > 5)
+            {
+                slap = numberOfThieves [i] - 5;
+                slappedTs += (numberOfThieves[i] - slap);
+                escaped += slap;
+            }
+            else
+            {
+                slappedTs += numberOfThieves[i];
+            }            
+        }        
+        Console.WriteLine("{0} thieves slapped.", slappedTs);
+        Console.WriteLine("{0} thieves escaped.", escaped);
+        Console.WriteLine("{0} packs, {1} bottles.", packs, bottles);
+    }
+}
