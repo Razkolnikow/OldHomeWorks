@@ -1,0 +1,57 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+
+class _05LongestIncreasingSequence
+{
+    static void Main()
+    {
+        int[] array = Console.ReadLine().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
+            .Select(int.Parse)
+            .ToArray();
+        List<int> list = new List<int>();
+        int longestSeq = 0;
+        List<int> longestList = new List<int>();
+        for (int i = 0; i < array.Length - 1; i++)
+        {
+            if (list.Count == 0)
+            {
+                list.Add(array[i]);
+            }
+            if (array[i] < array[i + 1])
+            {
+                list.Add(array[i + 1]);
+            }
+            else
+            {
+                Console.WriteLine(string.Join(" ", list));
+                if (list.Count > longestSeq)
+                {
+                    longestList.Clear();
+                    longestSeq = list.Count;
+                    for (int j = 0; j < list.Count; j++)
+                    {
+                        longestList.Add(list[j]);
+                    }
+                }
+                list.Clear();
+                list.Add(array[i + 1]);
+            }            
+        } 
+        if (list.Count > longestSeq)
+        {
+            longestList.Clear();
+            longestSeq = list.Count;
+            for (int j = 0; j < list.Count; j++)
+            {
+                longestList.Add(list[j]);
+            }
+        }
+        Console.WriteLine(string.Join(" ", list));
+        string longest = string.Join(" ", longestList);
+        Console.WriteLine("Longest: {0}", longest);
+    }
+}
