@@ -1,0 +1,41 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+
+class _02SortArrayOfNumsSelectionSort
+{
+    static void Main()
+    {
+        string numbers = Console.ReadLine();
+
+        int[] array = numbers.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
+            .Select(Int32.Parse)
+            .ToArray();
+        List<int> transferArray = array.ToList();
+        int[] sortedArr = new int[array.Length];
+        
+        int counter = 0;
+        while (counter != sortedArr.Length)
+        {
+            int  minNum = transferArray[0];            
+            for (int i = 0; i < transferArray.Count; i++)
+            {
+                if (transferArray[i] < minNum)
+                {
+                    minNum = transferArray[i];
+                }                
+                if (transferArray.Count == 1)
+                {
+                    minNum = transferArray[0];
+                }
+            }            
+            transferArray.Remove(minNum);
+            sortedArr[counter] = minNum;
+            counter++;            
+        }
+        Console.WriteLine(string.Join(" ", sortedArr));
+    }
+}
