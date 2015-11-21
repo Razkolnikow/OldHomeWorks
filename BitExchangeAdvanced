@@ -1,0 +1,70 @@
+using System;
+
+namespace bitEx
+{
+    class bitEx
+    {        
+        static void Main()
+        {
+            Console.Write("Type the number: ");
+            long num = long.Parse(Console.ReadLine());
+            Console.WriteLine("Binary representation of the number: " + Convert.ToString(num, 2).PadLeft(32, '0'));
+
+            Console.Write("Type position: ");
+            int p = int.Parse(Console.ReadLine());
+
+            Console.Write("Type second position: ");
+            int q = int.Parse(Console.ReadLine());
+
+            Console.Write("Type number of bits for exchange: ");
+            int k = int.Parse(Console.ReadLine());
+            long realK = 1;
+            int addNum = 3 * 2 + 1;
+            if (k == 1)
+            {
+                realK = 1;
+            }
+            else if (k == 2)
+            {
+                realK = 1 * 2 + 1;
+            }
+            else if (k == 3)
+            {
+
+                realK = addNum;
+            }
+            else if (k > 3)
+            {
+                for (int i = 4; i <= k; i++)
+                {
+                    addNum = (addNum * 2) + 1;
+
+                    realK = addNum;
+                }
+            }                                  
+
+            long helpNum = realK << p;
+            long bit1 = num & ~helpNum;
+            long helpNum2 = realK << q;
+            long bit2 = num & ~helpNum2;
+            long newBit1 = bit1 & bit2;
+            long a2 = 0;
+            long b2 = 0;                                   
+            long a = bit1 & helpNum2;
+            long b = bit2 & helpNum;
+            if (p < q)
+            {
+                b2 = b << (q - p);
+                a2 = a >> (q - p);
+            }
+            else
+            {
+                b2 = b >> (p - q);
+                a2 = a << (p - q);                
+            }            
+            long final = newBit1 | a2 | b2;
+            Console.WriteLine("Binary result: " + Convert.ToString(final, 2).PadLeft(32, '0'));
+            Console.WriteLine("Decimal result: " + "{0}", final);
+        }
+    }
+}
