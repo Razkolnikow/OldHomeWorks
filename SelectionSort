@@ -1,0 +1,40 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+
+class _02SelectionSort
+{
+    static void Main()
+    {
+        string numbers = Console.ReadLine();
+
+        int[] array = numbers.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
+            .Select(Int32.Parse)
+            .ToArray();
+        int minNum = int.MaxValue;
+        int counter = 0;
+        int counterI = 0;
+        int index = 0;
+        for (int i = 0; i < array.Length - 1; i++)
+        {
+            while (counter != array.Length) 
+            {
+                if (array [counter] < minNum)
+                {
+                    minNum = array[counter];
+                    index = counter;
+                }
+                counter++;
+            }
+            array[index] = array[i];
+            array[i] = minNum;
+            minNum = int.MaxValue;
+            counterI++;
+            counter = counterI;
+        }
+        Console.WriteLine(string.Join(", ", array));
+    }
+}
