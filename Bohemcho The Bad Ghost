@@ -1,0 +1,48 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Numerics;
+
+
+class _05
+{
+    static void Main()
+    {
+        
+        string inputLine = Console.ReadLine();
+        string inputLine2 = Console.ReadLine();
+        ulong newNumber = 0;
+        ulong points = 0;
+        int counter = 0;
+        while (inputLine != "Stop, God damn it")
+        {            
+            ulong number = ulong.Parse(inputLine);
+            int [] numbers = inputLine2.Split(new char[]{' '}, StringSplitOptions.RemoveEmptyEntries)
+                .Select(Int32.Parse)
+                .ToArray();
+            newNumber = number;
+            for (int i = 0; i < numbers.Length; i++)
+            {
+                newNumber ^= (1U << numbers[i]);
+            }
+            points += newNumber;
+            string lights = Convert.ToString((long)newNumber, 2);
+            for (int i = 0; i < lights.Length; i++)
+            {
+                if (lights[i] == '1')
+                {
+                    counter++;
+                }
+            }
+            inputLine = Console.ReadLine();
+            if (inputLine == "Stop, God damn it")
+            {
+                break;
+            }
+            inputLine2 = Console.ReadLine();
+        }                    
+        Console.WriteLine("Bohemcho left {0} lights on and his score is {1}", counter, points);
+    }
+}
