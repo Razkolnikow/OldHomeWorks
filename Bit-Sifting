@@ -1,0 +1,47 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+
+class _21BitSifting
+{
+    static void Main()
+    {
+        ulong initialNum = ulong.Parse(Console.ReadLine());
+        int n = int.Parse(Console.ReadLine());
+        ulong[] sieves = new ulong[n];
+        for (int i = 0; i < n; i++)
+        {
+            sieves [i] = ulong.Parse(Console.ReadLine());
+        }
+        long checkBit = 0;
+        int counter = 0;
+        List<int> positions = new List<int>();
+        for (int i = 0; i < 64; i++)
+        {
+            checkBit = (long)initialNum>>i & 1;
+            if (checkBit == 1)
+            {
+                counter++;
+                positions.Add(i);
+            }
+        }
+        List<int> sievesPositionsOfOnes = new List<int>();
+        for (int i = 0; i < sieves.Length; i++)
+        {
+            for (int j = 0; j < 64; j++)
+            {
+                checkBit = (long)sieves[i] >> j & 1;
+                if (checkBit == 1 && positions.Contains(j))
+                {
+                    sievesPositionsOfOnes.Add(j);
+                }
+            }
+        }
+        positions.RemoveAll(item => sievesPositionsOfOnes.Contains(item));
+        Console.WriteLine(positions.Count);
+        
+    }
+}
